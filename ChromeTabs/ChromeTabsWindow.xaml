@@ -13,6 +13,10 @@
         KeyDown="window_KeyDown"
         Title="ChromeTabsWindow" Height="450" Width="800">
 
+    <Window.DataContext>
+        <local:ChromeTabsViewModel/>
+    </Window.DataContext>
+        
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -85,30 +89,30 @@
                 <Button x:Name="MinimizeButton"
                 Click="MinimizeButton_Click"
                 Style="{StaticResource TitleBarButtonStyle}"
-                ToolTip="Minimize">
+                ToolTip="{Binding MinimizeButtonTooltip}">
                     <Path Data="M 13,15 H 23"/>
                 </Button>
 
                 <Button x:Name="FullScreenButton"
-Click="FullScreenButton_Click"
-Style="{StaticResource TitleBarButtonStyle}"
-ToolTip="FullScreen">
+                        Click="FullScreenButton_Click"
+                        Style="{StaticResource TitleBarButtonStyle}"
+                        ToolTip="{Binding FullScreenButtonTooltip}">
                     <Path Data="M4,4 L8,4 M4,4 L4,8
-     M20,4 L16,4 M20,4 L20,8
-     M4,20 L4,16 M4,20 L8,20
-     M20,20 L16,20 M20,20 L20,16" />
+                             M20,4 L16,4 M20,4 L20,8
+                             M4,20 L4,16 M4,20 L8,20
+                             M20,20 L16,20 M20,20 L20,16" />
                 </Button>
 
                 <Button x:Name="maximizeRestoreButton"  
                 Style="{StaticResource TitleBarMaximizeButtonStyle}"
                 Click="maximizeRestoreButton_Click"
-                ToolTip="Maximize">
+                ToolTip="{Binding MaximizeButtonTooltip}">
                     <Path x:Name="maximizeIcon"/>
                 </Button>
 
                 <Button x:Name="CloseButton" Style="{StaticResource TitleBarXButtonStyle}"
                 Click="CloseButton_Click"
-                ToolTip="Close">
+                ToolTip="{Binding XButtonTooltip}">
                     <Path Data="M 13,11 22,20 M 13,20 22,11"/>
                 </Button>
             </StackPanel>
