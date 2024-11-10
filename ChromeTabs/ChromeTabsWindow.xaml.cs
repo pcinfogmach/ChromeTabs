@@ -104,33 +104,19 @@ namespace ChromeTabs
 
         void ApplyFullScreen()
         {
-            TabControl newTabControl = new TabControl
-            {
-                Style = ChromeTabControl.Style,
-                ItemsSource = ChromeTabControl.Items,
-                SelectedIndex = ChromeTabControl.SelectedIndex,
-            };
-
-            Window window = new Window
-            {
-                Content = newTabControl,
-                WindowState = WindowState.Maximized,
-                WindowStyle = WindowStyle.None
-            };
-
-            window.PreviewKeyDown += (s, e) =>
+            this.WindowStyle = WindowStyle.None;
+            this.WindowState = WindowState.Normal;
+            this.WindowState = WindowState.Maximized;
+            TitleBarGrid.Visibility = Visibility.Collapsed;
+            this.PreviewKeyDown += (s, e) =>
             {
                 if (e.Key == Key.Escape)
                 {
-                    window.Close();
-                    ChromeTabControl.SelectedIndex = -1;
-                    ChromeTabControl.SelectedIndex = newTabControl.SelectedIndex;
-                    this.Visibility = Visibility.Visible;
+                    this.WindowStyle = WindowStyle.SingleBorderWindow;
+                    this.WindowState = WindowState.Normal;
+                    TitleBarGrid.Visibility = Visibility.Visible;
                 }
             };
-
-            this.Visibility = Visibility.Collapsed;
-            window.Show();
         }
 
         private void window_KeyDown(object sender, KeyEventArgs e)

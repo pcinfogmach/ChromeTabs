@@ -9,7 +9,7 @@
             <!-- Add to avoid border disappearing when window is maximised -->
             <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" 
                       Value="Maximized">
-                <Setter Property="Margin" Value="7"/>
+                <Setter Property="Margin" Value="6"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" 
                       Value="Normal">
