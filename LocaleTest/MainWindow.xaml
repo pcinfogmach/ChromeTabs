@@ -1,0 +1,23 @@
+﻿<Window x:Class="LocaleTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocaleTest"
+        mc:Ignorable="d"
+         Title="Translation Example" Height="200" Width="300">
+    <Window.Resources>
+        <local:TranslationConverter x:Key="TranslationConverter" />
+    </Window.Resources>
+
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+        <TextBlock Text="{Binding TranslationKey, Converter={StaticResource TranslationConverter}, ConverterParameter='Greeting'}"
+                   FontSize="20" HorizontalAlignment="Center" Margin="0,10"/>
+        <TextBlock Text="{Binding TranslationKey, Converter={StaticResource TranslationConverter}, ConverterParameter='Farewell'}"
+                   FontSize="20" HorizontalAlignment="Center" Margin="0,10"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="English" Click="SetEnglishLanguage" Width="100" Margin="5"/>
+            <Button Content="עברית" Click="SetHebrewLanguage" Width="100" Margin="5"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
