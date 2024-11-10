@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChromeTabs.Helpers;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -7,6 +8,8 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Text;
+using System.Windows.Media;
 
 namespace ChromeTabs
 {
@@ -31,11 +34,11 @@ namespace ChromeTabs
         }
         #endregion
 
-        public ChromeTabsViewModel()
-        {
-            Application.Current.Exit += async (s, e) =>
-                SaveState();
-        }
+        //public ChromeTabsViewModel()
+        //{
+        //    Application.Current.Exit += async (s, e) =>
+        //        SaveState();
+        //}
 
         #region Localization
         private string StateFilePath
@@ -43,8 +46,9 @@ namespace ChromeTabs
             get
             {
                 string localeDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Locale");
-                string cultureFileName = $"{CultureInfo.CurrentUICulture.TwoLetterISOLanguageName}.json";
-                string path = Path.Combine(localeDir, cultureFileName);
+                string cultureInfo = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+
+                string path = Path.Combine(localeDir, $"{cultureInfo}.json");
                 if (File.Exists(path))  return path;
 
                 // Fallback to en
@@ -58,9 +62,6 @@ namespace ChromeTabs
                 else return path;
             }
         }
-
-
-
         public void SaveState()
         {
             string json = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
@@ -94,6 +95,25 @@ namespace ChromeTabs
         private string _minimizeButtonToolTip;
         private string _xButtonToolTip;
 
+        SolidColorBrush _background;
+        SolidColorBrush _foreground;
+        FlowDirection _flowDirection;
+
+        public SolidColorBrush Background
+        {
+            get
+            {
+                if (_background == null)
+                {
+                    bool isDarkTheme = ThemeHelper.IsDarkThemeEnabled();
+                    _background = new SolidColorBrush(isDarkTheme ? Color.FromRgb(30, 30, 30) : Color.FromRgb(200, 200, 200));
+                    _foreground = new SolidColorBrush(isDarkTheme ? Color.FromRgb(200, 200, 200) : Color.FromRgb(30, 30, 30));
+                }
+                return _background;
+            }
+            set => SetProperty(ref _background, value);
+        }
+        public SolidColorBrush Foreground { get => _foreground; set => SetProperty(ref _foreground, value); }
 
         public string MinimizeButtonTooltip
         {
@@ -107,7 +127,14 @@ namespace ChromeTabs
         public string FullScreenButtonTooltip { get => _fullScreenButtonToolTip; set => SetProperty(ref _fullScreenButtonToolTip, value); }
         public string MaximizeButtonTooltip { get => _maximizeButtonToolTip; set => SetProperty(ref _maximizeButtonToolTip, value); }
         public string XButtonTooltip { get => _xButtonToolTip; set => SetProperty(ref _xButtonToolTip, value); }
-
+        public FlowDirection FlowDirection 
+        {
+            get
+            {
+                if (_flowDirection == null) _flowDirection = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "he" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+                return _flowDirection;
+            } 
+            set => SetProperty(ref _flowDirection, value); }
         #endregion
     }
 }

@@ -10,16 +10,7 @@ namespace ChromeTabs.Helpers
 {
     public static class ThemeHelper
     {
-        public static void ApplyTheme(Window window)
-        {
-            if (IsDarkThemeEnabled())
-            {
-                window.Background = new SolidColorBrush(Color.FromRgb(30, 30, 30));
-                window.Foreground = new SolidColorBrush(Color.FromRgb(200, 200, 200));
-            }
-        }
-
-        private static bool IsDarkThemeEnabled()
+        public static bool IsDarkThemeEnabled()
         {
             const string registryKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
             const string registryValueName = "AppsUseLightTheme";

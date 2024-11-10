@@ -8,6 +8,9 @@
         mc:Ignorable="d"
         Padding="1"
         ResizeMode="CanResize"
+        FlowDirection="{Binding FlowDirection}"
+        Background="{Binding Background}"
+        Foreground="{Binding Foreground}"
         x:Name="window"
         MinWidth="210"
         KeyDown="window_KeyDown"
@@ -184,21 +187,11 @@ SelectionChanged="DropDownListBox_SelectionChanged"/>
                 </Grid>
             </Grid>
         </Grid>
-             
+
         <TabControl x:Name="ChromeTabControl" Style="{StaticResource ChromeTabControlStyle}" 
-                    Grid.Row="1" SelectedIndex="0">
-            <TabItem Header="תחומים">
-                <wv:WebView2 Source="https://tchumim.com/"/>
-            </TabItem>
-            <TabItem Header="מתמחים טופ">
-                <wv:WebView2 Source="https://mitmachim.top/"/>
-            </TabItem>
-            <TabItem Header="כל רגע">
-                <wv:WebView2 Source="https://www.kore.co.il/"/>
-            </TabItem>
-            <TabItem Header="Pdf.Js">
-                <wv:WebView2 Source="https://mozilla.github.io/pdf.js/web/viewer.html"/>
-            </TabItem>
+                    Grid.Row="1" SelectedIndex="0"
+                    x:FieldModifier="public">
+            
         </TabControl>
     </Grid>
 </Window>

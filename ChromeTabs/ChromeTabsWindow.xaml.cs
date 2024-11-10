@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ChromeTabs.Helpers;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -11,7 +12,6 @@ namespace ChromeTabs
     {
         public ChromeTabsWindow()
         {
-            ////ThemeHelper.ApplyTheme(this);
             InitializeComponent();
         }
 
