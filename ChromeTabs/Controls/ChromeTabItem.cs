@@ -6,7 +6,9 @@ namespace ChromeTabs
 {
     public class ChromeTabItem : TabItem
     {
-        public ICommand CloseTabCommand { get => new RelayCommand(Dispose); }
+        private ICommand _closeTabCommand;
+        public ICommand CloseTabCommand => _closeTabCommand ??= new RelayCommand(Dispose);
+
         public virtual void Dispose()
         {
             if (this.Parent is TabControl tabControl)

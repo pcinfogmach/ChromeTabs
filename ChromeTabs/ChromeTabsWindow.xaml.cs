@@ -13,6 +13,8 @@ namespace ChromeTabs
         public ChromeTabsWindow()
         {
             InitializeComponent();
+            viewModel.LoadState();
+            this.Closing += (s, e) => viewModel.SaveState();
         }
 
         private void ScrollLeft_Click(object sender, RoutedEventArgs e)
@@ -107,15 +109,6 @@ namespace ChromeTabs
             this.WindowState = WindowState.Normal;
             this.WindowState = WindowState.Maximized;
             TitleBarGrid.Visibility = Visibility.Collapsed;
-            this.PreviewKeyDown += (s, e) =>
-            {
-                if (e.Key == Key.Escape)
-                {
-                    this.WindowStyle = WindowStyle.SingleBorderWindow;
-                    this.WindowState = WindowState.Normal;
-                    TitleBarGrid.Visibility = Visibility.Visible;
-                }
-            };
         }
 
         private void window_KeyDown(object sender, KeyEventArgs e)
@@ -127,17 +120,26 @@ namespace ChromeTabs
                     int selectedIndex = ChromeTabControl.SelectedIndex;
                     ChromeTabControl.Items.Remove(ChromeTabControl.SelectedItem);
                     ChromeTabControl.SelectedIndex = selectedIndex >= ChromeTabControl.Items.Count ? selectedIndex - 1 : selectedIndex;
+                    e.Handled = true;
                 }
                 else if (e.Key == Key.X)
                 {
                     var tabItems = ChromeTabControl.Items.Cast<TabItem>().ToList();
                     foreach (var item in tabItems)
                         ChromeTabControl.Items.Remove(item);
+                    e.Handled = true;
                 }
                 else if (e.Key == Key.Tab)
                 {
                     ChromeTabControl.SelectedIndex = ChromeTabControl.SelectedIndex >= ChromeTabControl.Items.Count - 1 ? 0 : ChromeTabControl.SelectedIndex + 1;
+                    e.Handled = true;
                 }
+            }
+            else if (e.Key == Key.Escape)
+            {
+                this.WindowStyle = WindowStyle.SingleBorderWindow;
+                this.WindowState = WindowState.Normal;
+                TitleBarGrid.Visibility = Visibility.Visible;
                 e.Handled = true;
             }
         }

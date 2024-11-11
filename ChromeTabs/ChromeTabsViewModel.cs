@@ -55,17 +55,15 @@ namespace ChromeTabs
                     foreach (PropertyInfo property in typeof(ChromeTabsViewModel).GetProperties(BindingFlags.Public | BindingFlags.Instance))
                     {
                         if (property.CanWrite)
-                        {
                             property.SetValue(this, property.GetValue(loadedState));
-                        }
                     }
                 }
             }
 
             bool isDarkTheme = ThemeHelper.IsDarkThemeEnabled();
-            _windowBackground = new SolidColorBrush(isDarkTheme ? Color.FromRgb(30, 30, 30) : Color.FromRgb(200, 200, 200));
-            _windowForeground = new SolidColorBrush(isDarkTheme ? Color.FromRgb(200, 200, 200) : Color.FromRgb(30, 30, 30));
-            _windowFlowDirection = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "he" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            WindowBackground = new SolidColorBrush(isDarkTheme ? Color.FromRgb(30, 30, 30) : Color.FromRgb(200, 200, 200));
+            WindowForeground = new SolidColorBrush(isDarkTheme ? Color.FromRgb(200, 200, 200) : Color.FromRgb(30, 30, 30));
+            WindowFlowDirection = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "he" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
         }
 
         private string StateFilePath()
@@ -89,9 +87,9 @@ namespace ChromeTabs
         #endregion
 
         #region Members
-        SolidColorBrush _windowBackground;
-        SolidColorBrush _windowForeground;
-        FlowDirection _windowFlowDirection;
+        [JsonIgnore] SolidColorBrush _windowBackground;
+        [JsonIgnore] SolidColorBrush _windowForeground;
+        [JsonIgnore] FlowDirection _windowFlowDirection;
 
         private string _maximizeButtonToolTip;
         private string _fullScreenButtonToolTip;
@@ -113,7 +111,7 @@ namespace ChromeTabs
         public string XButtonTooltip { get => _xButtonToolTip; set => SetProperty(ref _xButtonToolTip, value); }
         public double? WindowTop { get => _windowTop; set => SetProperty(ref _windowTop, value); }
         public double? windowLeft { get => _windowLeft; set => SetProperty(ref _windowLeft, value); }
-        public double? WindowWidth { get => _windowWidth; set => SetProperty(ref _windowHeight, value); }
+        public double? WindowWidth { get => _windowWidth; set => SetProperty(ref _windowWidth, value); }
         public double? WindowHeight { get => _windowHeight; set => SetProperty(ref _windowHeight, value); }
         [JsonConverter(typeof(JsonStringEnumConverter))] public WindowState WindowState { get => _windowState; set => SetProperty(ref _windowState, value); }
         public int SelectedTabIndex { get => _selectedTabIndex; set => SetProperty(ref _selectedTabIndex, value); }
