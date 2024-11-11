@@ -191,7 +191,7 @@ SelectionChanged="DropDownListBox_SelectionChanged"/>
         </Grid>
 
         <TabControl x:Name="ChromeTabControl" Style="{StaticResource ChromeTabControlStyle}" 
-                    Grid.Row="1" SelectedIndex="0"
+                    Grid.Row="1" SelectedIndex="{Binding SelectedTabIndex}"
                     x:FieldModifier="public">
             
         </TabControl>

@@ -32,10 +32,11 @@ namespace ChromeTabs
         }
         #endregion
 
+        bool isLoaded;
         public ChromeTabsViewModel()
         {
-            Application.Current.Exit += async (s, e) =>
-                SaveState();
+            if (!isLoaded) LoadState(); isLoaded = true;
+            Application.Current.Exit += async (s, e) => SaveState();
         }
 
         #region Serialization
@@ -83,6 +84,11 @@ namespace ChromeTabs
                         }
                     }
                 }
+
+                bool isDarkTheme = ThemeHelper.IsDarkThemeEnabled();
+                _background = new SolidColorBrush(isDarkTheme ? Color.FromRgb(30, 30, 30) : Color.FromRgb(200, 200, 200));
+                _foreground = new SolidColorBrush(isDarkTheme ? Color.FromRgb(200, 200, 200) : Color.FromRgb(30, 30, 30));
+                _flowDirection = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "he" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
             }
         }
         #endregion
@@ -96,56 +102,32 @@ namespace ChromeTabs
         private string _fullScreenButtonToolTip;
         private string _minimizeButtonToolTip;
         private string _xButtonToolTip;
+        double? _top;
+        double? _left;
+        double _width;
         double _height;
+        WindowState _windowState;
+        int _selectedTabIndex; 
 
         [JsonIgnore]
-        public SolidColorBrush Background
-        {
-            get
-            {
-                if (_background == null)
-                {
-                    bool isDarkTheme = ThemeHelper.IsDarkThemeEnabled();
-                    _background = new SolidColorBrush(isDarkTheme ? Color.FromRgb(30, 30, 30) : Color.FromRgb(200, 200, 200));
-                    _foreground = new SolidColorBrush(isDarkTheme ? Color.FromRgb(200, 200, 200) : Color.FromRgb(30, 30, 30));
-                }
-                return _background;
-            }
-            set => SetProperty(ref _background, value);
-        }
+        public SolidColorBrush Background { get => _background; set => SetProperty(ref _background, value); }
         [JsonIgnore]
         public SolidColorBrush Foreground { get => _foreground; set => SetProperty(ref _foreground, value); }
         [JsonIgnore]
-        public FlowDirection FlowDirection
-        {
-            get
-            {
-                if (_flowDirection == null) _flowDirection = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "he" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-                return _flowDirection;
-            }
-            set => SetProperty(ref _flowDirection, value);
-        }
+        public FlowDirection FlowDirection{ get => _flowDirection; set => SetProperty(ref _flowDirection, value);}
 
-        public string MinimizeButtonTooltip
-        {
-            get
-            {
-                if (_minimizeButtonToolTip == null) LoadState();
-                return _minimizeButtonToolTip;
-            }
-            set => SetProperty(ref _minimizeButtonToolTip, value);
-        }
+        public string MinimizeButtonTooltip { get => _minimizeButtonToolTip; set => SetProperty(ref _minimizeButtonToolTip, value); }
         public string FullScreenButtonTooltip { get => _fullScreenButtonToolTip; set => SetProperty(ref _fullScreenButtonToolTip, value); }
         public string MaximizeButtonTooltip { get => _maximizeButtonToolTip; set => SetProperty(ref _maximizeButtonToolTip, value); }
         public string XButtonTooltip { get => _xButtonToolTip; set => SetProperty(ref _xButtonToolTip, value); }
-        public double? Top { get; set; }
-        public double? Left { get; set; }
-        public double Width { get; set; }
-        public double Height { get; set; }
+        public double? Top { get => _top; set => SetProperty(ref _top, value); }
+        public double? Left { get => _left; set => SetProperty(ref _left, value); }
+        public double Width { get => _width; set => SetProperty(ref _width, value); }
+        public double Height { get => _height; set => SetProperty(ref _height, value); }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public WindowState WindowState { get; set; }
-        public int SelectedTabIndex { get; set; } // New property for selected tab index
+        public WindowState WindowState { get => _windowState; set => SetProperty(ref _windowState, value); }
+        public int SelectedTabIndex { get => _selectedTabIndex; set => SetProperty(ref _selectedTabIndex, value); }
         #endregion
     }
 }
