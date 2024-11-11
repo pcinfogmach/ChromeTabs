@@ -17,6 +17,11 @@ namespace ChromeTabs
             this.Closing += (s, e) => viewModel.SaveState();
         }
 
+        private void ScreenCaptureButton_Click(object sender, RoutedEventArgs e)
+        {
+            new ScreenCapture.MainWindow().Show();
+        }
+
         private void ScrollLeft_Click(object sender, RoutedEventArgs e)
         {
             if (ChromeTabStrip.SelectedIndex > 0) ChromeTabStrip.SelectedIndex--;
@@ -55,15 +60,15 @@ namespace ChromeTabs
 
         private void ListBoxItem_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            //if (!(sender is ListBoxItem listBoxItem))
-            //{
-            //    return;
-            //}
+            if (!(sender is ListBoxItem listBoxItem))
+            {
+                return;
+            }
 
-            //if (Mouse.PrimaryDevice.LeftButton == MouseButtonState.Pressed)
-            //{
-            //    DragDrop.DoDragDrop(listBoxItem, listBoxItem, DragDropEffects.All);
-            //}
+            if (Mouse.PrimaryDevice.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(listBoxItem, listBoxItem, DragDropEffects.All);
+            }
         }
 
         private void ListBoxItem_Drop(object sender, DragEventArgs e)

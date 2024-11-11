@@ -95,6 +95,7 @@ namespace ChromeTabs
         private string _fullScreenButtonToolTip;
         private string _minimizeButtonToolTip;
         private string _xButtonToolTip;
+        private string _screenCaptureButtonToolTip;
         double? _windowTop;
         double? _windowLeft;
         double? _windowWidth;
@@ -109,6 +110,7 @@ namespace ChromeTabs
         public string FullScreenButtonTooltip { get => _fullScreenButtonToolTip; set => SetProperty(ref _fullScreenButtonToolTip, value); }
         public string MaximizeButtonTooltip { get => _maximizeButtonToolTip; set => SetProperty(ref _maximizeButtonToolTip, value); }
         public string XButtonTooltip { get => _xButtonToolTip; set => SetProperty(ref _xButtonToolTip, value); }
+        public string ScreenCaptureButtonTooltip { get => _screenCaptureButtonToolTip; set => SetProperty(ref _screenCaptureButtonToolTip, value); }
         public double? WindowTop { get => _windowTop; set => SetProperty(ref _windowTop, value); }
         public double? windowLeft { get => _windowLeft; set => SetProperty(ref _windowLeft, value); }
         public double? WindowWidth { get => _windowWidth; set => SetProperty(ref _windowWidth, value); }
