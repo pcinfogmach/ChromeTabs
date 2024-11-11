@@ -2,5 +2,11 @@
   "MinimizeButtonTooltip": "מזער",
   "FullScreenButtonTooltip": "מסך מלא",
   "MaximizeButtonTooltip": "מקסם \\ שחזר",
-  "XButtonTooltip": "סגור"
+  "XButtonTooltip": "סגור",
+  "Top": null,
+  "Left": null,
+  "Width": 750,
+  "Height": 500,
+  "WindowState": "Normal",
+  "SelectedTabIndex": 0
 }

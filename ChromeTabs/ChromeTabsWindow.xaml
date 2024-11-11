@@ -11,10 +11,12 @@
         FlowDirection="{Binding FlowDirection}"
         Background="{Binding Background}"
         Foreground="{Binding Foreground}"
+        Top="{Binding Top}" Left="{Binding Left}"
+        Height="{Binding Height}" Width="{Binding Width}"
+        WindowState="{Binding WindowState}"
         x:Name="window"
         MinWidth="210"
-        KeyDown="window_KeyDown"
-        Title="ChromeTabsWindow" Height="450" Width="800">
+        KeyDown="window_KeyDown">
 
     <Window.DataContext>
         <local:ChromeTabsViewModel/>

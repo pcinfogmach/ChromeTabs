@@ -1,14 +1,12 @@
 ﻿using ChromeTabs.Helpers;
-using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 using System.Windows;
-using System.Windows.Automation.Text;
 using System.Windows.Media;
 
 namespace ChromeTabs
@@ -34,13 +32,13 @@ namespace ChromeTabs
         }
         #endregion
 
-        //public ChromeTabsViewModel()
-        //{
-        //    Application.Current.Exit += async (s, e) =>
-        //        SaveState();
-        //}
+        public ChromeTabsViewModel()
+        {
+            Application.Current.Exit += async (s, e) =>
+                SaveState();
+        }
 
-        #region Localization
+        #region Serialization
         private string StateFilePath
         {
             get
@@ -90,15 +88,17 @@ namespace ChromeTabs
         #endregion
 
         #region Members
-        private string _maximizeButtonToolTip;
-        private string _fullScreenButtonToolTip;
-        private string _minimizeButtonToolTip;
-        private string _xButtonToolTip;
-
         SolidColorBrush _background;
         SolidColorBrush _foreground;
         FlowDirection _flowDirection;
 
+        private string _maximizeButtonToolTip;
+        private string _fullScreenButtonToolTip;
+        private string _minimizeButtonToolTip;
+        private string _xButtonToolTip;
+        double _height;
+
+        [JsonIgnore]
         public SolidColorBrush Background
         {
             get
@@ -113,7 +113,18 @@ namespace ChromeTabs
             }
             set => SetProperty(ref _background, value);
         }
+        [JsonIgnore]
         public SolidColorBrush Foreground { get => _foreground; set => SetProperty(ref _foreground, value); }
+        [JsonIgnore]
+        public FlowDirection FlowDirection
+        {
+            get
+            {
+                if (_flowDirection == null) _flowDirection = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "he" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+                return _flowDirection;
+            }
+            set => SetProperty(ref _flowDirection, value);
+        }
 
         public string MinimizeButtonTooltip
         {
@@ -127,14 +138,14 @@ namespace ChromeTabs
         public string FullScreenButtonTooltip { get => _fullScreenButtonToolTip; set => SetProperty(ref _fullScreenButtonToolTip, value); }
         public string MaximizeButtonTooltip { get => _maximizeButtonToolTip; set => SetProperty(ref _maximizeButtonToolTip, value); }
         public string XButtonTooltip { get => _xButtonToolTip; set => SetProperty(ref _xButtonToolTip, value); }
-        public FlowDirection FlowDirection 
-        {
-            get
-            {
-                if (_flowDirection == null) _flowDirection = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "he" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-                return _flowDirection;
-            } 
-            set => SetProperty(ref _flowDirection, value); }
+        public double? Top { get; set; }
+        public double? Left { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public WindowState WindowState { get; set; }
+        public int SelectedTabIndex { get; set; } // New property for selected tab index
         #endregion
     }
 }
