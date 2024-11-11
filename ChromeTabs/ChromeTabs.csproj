@@ -26,4 +26,8 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\ScreenCapture\ScreenCapture\ScreenCapture.csproj" />
+  </ItemGroup>
+
 </Project>
