@@ -13,6 +13,8 @@ namespace ChromeTabs
         public ChromeTabsWindow()
         {
             InitializeComponent();
+            viewModel.LoadState();
+            this.Closing += (s, e) => viewModel.SaveState();
         }
 
         private void ScrollLeft_Click(object sender, RoutedEventArgs e)
