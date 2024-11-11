@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace ChromeTabs
 {
-    internal class ChromeTabStripListBox : ListBox
+    public class ChromeTabStripListBox : ListBox
     {
         public ChromeTabStripListBox() 
         {

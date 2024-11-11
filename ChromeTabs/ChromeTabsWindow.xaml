@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChromeTabs"
         xmlns:wv="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Padding="1"
         ResizeMode="CanResize"
@@ -24,7 +25,16 @@
     <Window.DataContext>
         <local:ChromeTabsViewModel x:Name="viewModel"/>
     </Window.DataContext>
-        
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadStateCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding SaveStateCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -32,7 +42,7 @@
                 <ResourceDictionary Source="ChromeTitleBarDictionary.xaml"/>
                 <ResourceDictionary Source="CostumeListBoxItem.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="TabItem">
+            <!--<Style TargetType="TabItem">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -65,7 +75,7 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-            </Style>
+            </Style>-->
         </ResourceDictionary>
     </Window.Resources>
 
@@ -193,10 +203,10 @@ SelectionChanged="DropDownListBox_SelectionChanged"/>
             </Grid>
         </Grid>
 
-        <TabControl x:Name="ChromeTabControl" Style="{StaticResource ChromeTabControlStyle}" 
+        <local:ChromeTabControl x:Name="ChromeTabControl" Style="{StaticResource ChromeTabControlStyle}" 
                     Grid.Row="1" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}"
                     x:FieldModifier="public">
             
-        </TabControl>
+        </local:ChromeTabControl>
     </Grid>
 </Window>

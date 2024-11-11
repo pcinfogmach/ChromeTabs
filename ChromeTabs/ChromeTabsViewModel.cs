@@ -119,9 +119,9 @@ namespace ChromeTabs
         public int SelectedTabIndex { get => _selectedTabIndex; set => SetProperty(ref _selectedTabIndex, value); }
         #endregion
 
-        //#region Commands
-        //public ICommand LoadStateCommand { get => new RelayCommand(LoadState); }
-        //public ICommand SaveStateCommand { get => new RelayCommand(SaveState); }
-        //#endregion
+        #region Commands
+        public ICommand LoadStateCommand { get => new RelayCommand(LoadState); }
+        public ICommand SaveStateCommand { get => new RelayCommand(SaveState); }
+        #endregion
     }
 }
