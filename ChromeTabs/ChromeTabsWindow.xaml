@@ -19,7 +19,7 @@
         FlowDirection="{Binding WindowFlowDirection}"
         MinHeight="210"
         MinWidth="210"
-        PreviewKeyDown="window_KeyDown">
+        KeyDown="window_KeyDown">
 
     <Window.DataContext>
         <local:ChromeTabsViewModel x:Name="viewModel"/>

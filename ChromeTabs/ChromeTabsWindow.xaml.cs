@@ -19,7 +19,16 @@ namespace ChromeTabs
 
         private void ScreenCaptureButton_Click(object sender, RoutedEventArgs e)
         {
-            new ScreenCapture.MainWindow().Show();
+            var captureWindow = new ScreenCapture.MainWindow(false)
+            {
+                WindowState = WindowState.Normal,
+                Height = this.ActualHeight,
+                Width = this.ActualWidth,
+                Left = this.Left,
+                Top = this.Top,
+                Owner = this,
+            };
+            captureWindow.Show();
         }
 
         private void ScrollLeft_Click(object sender, RoutedEventArgs e)
