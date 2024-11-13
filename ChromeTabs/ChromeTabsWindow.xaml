@@ -51,7 +51,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" x:Name="TitleBarGrid" Margin="0,1,5,0">
+        <Grid Grid.Row="0" x:Name="TitleBarGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
@@ -105,7 +105,7 @@ Text="≡" FontSize="18" LineHeight="18" LineStackingStrategy="BlockLineHeight"/
                     <Path Data="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
                 </RepeatButton>
 
-                <Button x:Name="ScreenCaptureButton" Style="{StaticResource TitleBarXButtonStyle}"
+                <Button x:Name="ScreenCaptureButton" Style="{StaticResource TitleBarButtonStyle}"
                             ToolTip="{Binding ScreenCaptureButtonTooltip}"
                             Click="ScreenCaptureButton_Click">
                     <Path Data="M4,4 L8,4 M4,4 L4,8
@@ -136,11 +136,6 @@ SelectionChanged="DropDownListBox_SelectionChanged"/>
                            x:FieldModifier="public">
                 <local:ChromeTabStripListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem" BasedOn="{StaticResource CostumeListBoxItemStyle}">
-                        <Style.Resources>
-                            <Style TargetType="ToolTip">
-                                <Setter Property="Background" Value="#FFF3F3F3"/>
-                            </Style>
-                        </Style.Resources>
                         <Setter Property="ToolTip" Value="{Binding Header}"/>
                         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
                         <Setter Property="Padding" Value="0"/>
