@@ -140,9 +140,10 @@ SelectionChanged="DropDownListBox_SelectionChanged"/>
                     </Grid.ColumnDefinitions>
 
                     <local:ChromeTabStripListBox x:Name="ChromeTabStrip"
-       Style="{StaticResource ChromeTabStripListBox}" Grid.Column="0"
-       ItemsSource="{Binding ElementName=ChromeTabControl, Path=Items}"
-       SelectedItem="{Binding ElementName=ChromeTabControl, Path=SelectedItem}">
+                           Style="{StaticResource ChromeTabStripListBox}" Grid.Column="0"
+                           ItemsSource="{Binding ElementName=ChromeTabControl, Path=Items}"
+                           SelectedItem="{Binding ElementName=ChromeTabControl, Path=SelectedItem}"
+                           x:FieldModifier="public">
                         <local:ChromeTabStripListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem" BasedOn="{StaticResource CostumeListBoxItemStyle}">
                                 <Style.Resources>

@@ -1,4 +1,5 @@
 ﻿
+using ChromeTabs;
 using Microsoft.Web.WebView2.Wpf;
 using System.Drawing;
 using System.Windows;
@@ -15,10 +16,10 @@ namespace CromeTabsDemo
         {
             ChromeTabs.ChromeTabsWindow window = new ChromeTabs.ChromeTabsWindow();
             window.Show();
-            window.ChromeTabControl.Items.Add(new TabItem { Header = "תחומים", Content = new WebView2 { Source = new Uri("https://tchumim.com/") } });
-            window.ChromeTabControl.Items.Add(new TabItem { Header = "מתמחים טופ", Content = new WebView2 { Source = new Uri("https://mitmachim.top/") } });
-            window.ChromeTabControl.Items.Add(new TabItem { Header = "כל רגע", Content = new WebView2 { Source = new Uri("https://www.kore.co.il/") } });
-            window.ChromeTabControl.Items.Add(new TabItem { Header = "קול הלשון", Content = new WebView2 { Source = new Uri("https://www2.kolhalashon.com/") } });
+            window.ChromeTabControl.Items.Add(new ChromeTabItem { Header = "תחומים", Content = new WebView2 { Source = new Uri("https://tchumim.com/") } });
+            window.ChromeTabControl.Items.Add(new ChromeTabItem { Header = "מתמחים טופ", Content = new WebView2 { Source = new Uri("https://mitmachim.top/") } });
+            window.ChromeTabControl.Items.Add(new ChromeTabItem { Header = "כל רגע", Content = new WebView2 { Source = new Uri("https://www.kore.co.il/") } });
+            window.ChromeTabControl.Items.Add(new ChromeTabItem { Header = "קול הלשון", Content = new WebView2 { Source = new Uri("https://www2.kolhalashon.com/") } });
         }
     }
 

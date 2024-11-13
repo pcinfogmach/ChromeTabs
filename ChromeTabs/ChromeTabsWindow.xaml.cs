@@ -19,7 +19,7 @@ namespace ChromeTabs
 
         private void ScreenCaptureButton_Click(object sender, RoutedEventArgs e)
         {
-            var captureWindow = new ScreenCapture.MainWindow(false)
+            var captureWindow = new ScreenCaptureLib.ScreenCaptureWindow(false)
             {
                 WindowState = WindowState.Normal,
                 Height = this.ActualHeight,
@@ -69,7 +69,7 @@ namespace ChromeTabs
 
         private void ListBoxItem_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (!(sender is ListBoxItem listBoxItem))
+            if (!(sender is ListBoxItem listBoxItem) || e.OriginalSource is Button)
             {
                 return;
             }

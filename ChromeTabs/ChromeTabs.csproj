@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ScreenCapture\ScreenCapture\ScreenCapture.csproj" />
+    <ProjectReference Include="..\..\ScreenCapture\ScreenCaptureLib\ScreenCaptureLib.csproj" />
   </ItemGroup>
 
 </Project>
