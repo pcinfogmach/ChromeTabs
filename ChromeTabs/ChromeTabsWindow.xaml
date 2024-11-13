@@ -22,7 +22,7 @@
         KeyDown="window_KeyDown">
 
     <Window.DataContext>
-        <local:ChromeTabsViewModel x:Name="viewModel"/>
+        <local:LocaleViewModel x:Name="localeViewModel"/>
     </Window.DataContext>
 
     <Window.Resources>

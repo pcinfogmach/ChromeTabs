@@ -14,8 +14,13 @@ namespace ChromeTabs
         public ChromeTabsWindow()
         {
             InitializeComponent();
-            viewModel.LoadState();
-            this.Closing += (s, e) => viewModel.SaveState();
+            localeViewModel.LoadState();
+            WindowStateData.LoadState(this);
+            this.Closing += (s, e) =>
+            {
+                WindowStateData.SaveState(this);
+                localeViewModel.SaveState();
+            };
         }
 
         private void ScreenCaptureButton_Click(object sender, RoutedEventArgs e) => CaptureScreen();

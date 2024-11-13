@@ -5,15 +5,11 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Xml.Serialization;
 
 namespace ChromeTabs
 {
-    internal class ChromeTabsViewModel : INotifyPropertyChanged
+    internal class LocaleViewModel : INotifyPropertyChanged
     {
         #region InterFace
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -58,12 +54,7 @@ namespace ChromeTabs
                             property.SetValue(this, property.GetValue(loadedState));
                     }
                 }
-            }
-
-            bool isDarkTheme = ThemeHelper.IsDarkThemeEnabled();
-            WindowBackground = new SolidColorBrush(isDarkTheme ? Color.FromRgb(30, 30, 30) : Color.FromRgb(200, 200, 200));
-            WindowForeground = new SolidColorBrush(isDarkTheme ? Color.FromRgb(200, 200, 200) : Color.FromRgb(30, 30, 30));
-            WindowFlowDirection = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "he" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            }           
         }
 
         private string StateFilePath()
@@ -87,36 +78,17 @@ namespace ChromeTabs
         #endregion
 
         #region Members
-        [JsonIgnore] SolidColorBrush _windowBackground;
-        [JsonIgnore] SolidColorBrush _windowForeground;
-        [JsonIgnore] FlowDirection _windowFlowDirection;
-
         private string _maximizeButtonToolTip;
         private string _fullScreenButtonToolTip;
         private string _minimizeButtonToolTip;
         private string _xButtonToolTip;
         private string _screenCaptureButtonToolTip;
-        double? _windowTop;
-        double? _windowLeft;
-        double? _windowWidth;
-        double? _windowHeight;
-        WindowState _windowState;
-        int _selectedTabIndex;
 
-        [JsonIgnore] public SolidColorBrush WindowBackground { get => _windowBackground; set => SetProperty(ref _windowBackground, value); }
-        [JsonIgnore] public SolidColorBrush WindowForeground { get => _windowForeground; set => SetProperty(ref _windowForeground, value); }
-        [JsonIgnore] public FlowDirection WindowFlowDirection { get => _windowFlowDirection; set => SetProperty(ref _windowFlowDirection, value); }
         public string MinimizeButtonTooltip { get => _minimizeButtonToolTip;  set => SetProperty(ref _minimizeButtonToolTip, value); }
         public string FullScreenButtonTooltip { get => _fullScreenButtonToolTip; set => SetProperty(ref _fullScreenButtonToolTip, value); }
         public string MaximizeButtonTooltip { get => _maximizeButtonToolTip; set => SetProperty(ref _maximizeButtonToolTip, value); }
         public string XButtonTooltip { get => _xButtonToolTip; set => SetProperty(ref _xButtonToolTip, value); }
         public string ScreenCaptureButtonTooltip { get => _screenCaptureButtonToolTip; set => SetProperty(ref _screenCaptureButtonToolTip, value); }
-        public double? WindowTop { get => _windowTop; set => SetProperty(ref _windowTop, value); }
-        public double? windowLeft { get => _windowLeft; set => SetProperty(ref _windowLeft, value); }
-        public double? WindowWidth { get => _windowWidth; set => SetProperty(ref _windowWidth, value); }
-        public double? WindowHeight { get => _windowHeight; set => SetProperty(ref _windowHeight, value); }
-        [JsonConverter(typeof(JsonStringEnumConverter))] public WindowState WindowState { get => _windowState; set => SetProperty(ref _windowState, value); }
-        public int SelectedTabIndex { get => _selectedTabIndex; set => SetProperty(ref _selectedTabIndex, value); }
         #endregion
 
         #region Commands
