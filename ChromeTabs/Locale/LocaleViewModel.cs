@@ -43,12 +43,12 @@ namespace ChromeTabs
             if (File.Exists(stateFilePath))
             {
                 string json = File.ReadAllText(stateFilePath);
-                ChromeTabsViewModel loadedState = JsonSerializer.Deserialize<ChromeTabsViewModel>(json);
+                LocaleViewModel loadedState = JsonSerializer.Deserialize<LocaleViewModel>(json);
 
                 if (loadedState != null)
                 {
                     // Use reflection to assign each property from loadedState to this instance
-                    foreach (PropertyInfo property in typeof(ChromeTabsViewModel).GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                    foreach (PropertyInfo property in typeof(LocaleViewModel).GetProperties(BindingFlags.Public | BindingFlags.Instance))
                     {
                         if (property.CanWrite)
                             property.SetValue(this, property.GetValue(loadedState));
