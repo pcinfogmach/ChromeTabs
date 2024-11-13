@@ -51,7 +51,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" x:Name="TitleBarGrid" Margin="2,0,2,0">
+        <Grid Grid.Row="0" x:Name="TitleBarGrid" Margin="0,1,5,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
@@ -132,6 +132,7 @@ SelectionChanged="DropDownListBox_SelectionChanged"/>
                            Style="{StaticResource ChromeTabStripListBox}"
                            ItemsSource="{Binding ElementName=ChromeTabControl, Path=Items}"
                            SelectedItem="{Binding ElementName=ChromeTabControl, Path=SelectedItem}"
+                           MouseDown="ChromeTabStrip_MouseDown"
                            x:FieldModifier="public">
                 <local:ChromeTabStripListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem" BasedOn="{StaticResource CostumeListBoxItemStyle}">

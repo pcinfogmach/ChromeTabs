@@ -1,4 +1,5 @@
 ﻿using ChromeTabs.Helpers;
+using System.Diagnostics.SymbolStore;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -125,6 +126,14 @@ namespace ChromeTabs
             TitleBarGrid.Visibility = Visibility.Collapsed;
         }
 
+        private void ChromeTabStrip_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+                this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+            else
+                DragMove();
+        }
+
         private void window_KeyDown(object sender, KeyEventArgs e)
         {
             if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
@@ -157,5 +166,6 @@ namespace ChromeTabs
                 e.Handled = true;
             }
         }
+            
     }
 }
