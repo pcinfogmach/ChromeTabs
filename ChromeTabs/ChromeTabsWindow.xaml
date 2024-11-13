@@ -18,7 +18,7 @@
         Foreground="{Binding WindowForeground}"
         FlowDirection="{Binding WindowFlowDirection}"
         MinHeight="210"
-        MinWidth="210"
+        MinWidth="450"
         KeyDown="window_KeyDown">
 
     <Window.DataContext>
@@ -55,9 +55,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition MaxWidth="60"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel x:Name="TitleBarButtonsPanel"  Grid.Column="1"
+            <StackPanel x:Name="TitleBarButtonsPanel"  Grid.Column="3"
                         Orientation="Horizontal">
                 <!--  standard system buttons (minimize, maximize/restore, close)  -->
                 <Button x:Name="MinimizeButton"
@@ -88,82 +90,67 @@
                 </Button>
             </StackPanel>
 
-            <Grid Grid.Column="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition MaxWidth="60"/>
-                    </Grid.ColumnDefinitions>
-                    
-                    <StackPanel x:Name="TabStripNavigationPanel" Grid.Column="1"
+            <StackPanel x:Name="TabStripNavigationPanel" Grid.Column="1"
                Orientation="Horizontal" >
-                        <RepeatButton x:Name="ScrollLeft" Style="{StaticResource TitleBarRepeatButtonStyle}"
+                <RepeatButton x:Name="ScrollLeft" Style="{StaticResource TitleBarRepeatButtonStyle}"
       Grid.Column="0" Click="ScrollLeft_Click">
-                            <Path Data="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
-                        </RepeatButton>
-                        <ToggleButton  x:Name="DropdownButton" Style="{StaticResource TitleBarToggleButtonStyle}">
-                            <TextBlock Margin="3,0,3,0"
+                    <Path Data="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
+                </RepeatButton>
+                <ToggleButton  x:Name="DropdownButton" Style="{StaticResource TitleBarToggleButtonStyle}">
+                    <TextBlock Margin="3,0,3,0"
 Text="≡" FontSize="18" LineHeight="18" LineStackingStrategy="BlockLineHeight"/>
-                        </ToggleButton>
-                    <RepeatButton x:Name="ScrollRight"  Style="{StaticResource TitleBarRepeatButtonStyle}"
+                </ToggleButton>
+                <RepeatButton x:Name="ScrollRight"  Style="{StaticResource TitleBarRepeatButtonStyle}"
       Click="ScrollRight_Click">
-                        <Path Data="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
-                    </RepeatButton>
+                    <Path Data="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+                </RepeatButton>
 
-                    <Button x:Name="ScreenCaptureButton" Style="{StaticResource TitleBarXButtonStyle}"
+                <Button x:Name="ScreenCaptureButton" Style="{StaticResource TitleBarXButtonStyle}"
                             ToolTip="{Binding ScreenCaptureButtonTooltip}"
                             Click="ScreenCaptureButton_Click">
-                        <Path Data="M4,4 L8,4 M4,4 L4,8
+                    <Path Data="M4,4 L8,4 M4,4 L4,8
           M20,4 L16,4 M20,4 L20,8
           M4,20 L4,16 M4,20 L8,20
           M20,20 L16,20 M20,20 L20,16" />
-                    </Button>
-                        
-                    <!-- Popup for TabListBox dropdown -->
-                        <Popup x:Name="DropDown"
+                </Button>
+
+                <!-- Popup for TabListBox dropdown -->
+                <Popup x:Name="DropDown"
 PlacementTarget="{Binding ElementName=DropdownButton}" 
 IsOpen="{Binding IsChecked, ElementName=DropdownButton}"
 Opened="DropDown_Opened"
 StaysOpen="False"
 Placement="Bottom">
-                            <ListBox x:Name="DropDownListBox" BorderThickness="0" 
+                    <ListBox x:Name="DropDownListBox" BorderThickness="0" 
       Background="{Binding Background, RelativeSource={RelativeSource AncestorType=Window}}"
       Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Window}}"
 SelectionChanged="DropDownListBox_SelectionChanged"/>
-                        </Popup>
-                    </StackPanel>
+                </Popup>
+            </StackPanel>
 
-                <Grid Grid.Column="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <local:ChromeTabStripListBox x:Name="ChromeTabStrip"
-                           Style="{StaticResource ChromeTabStripListBox}" Grid.Column="0"
+            <local:ChromeTabStripListBox x:Name="ChromeTabStrip" Grid.Column="0"
+                           Style="{StaticResource ChromeTabStripListBox}"
                            ItemsSource="{Binding ElementName=ChromeTabControl, Path=Items}"
                            SelectedItem="{Binding ElementName=ChromeTabControl, Path=SelectedItem}"
                            x:FieldModifier="public">
-                        <local:ChromeTabStripListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource CostumeListBoxItemStyle}">
-                                <Style.Resources>
-                                    <Style TargetType="ToolTip">
-                                        <Setter Property="Background" Value="#FFF3F3F3"/>
-                                    </Style>
-                                </Style.Resources>
-                                <Setter Property="ToolTip" Value="{Binding Header}"/>
-                                <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
-                                <Setter Property="Padding" Value="0"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                                <Setter Property="Margin" Value="1"/>
-                                <Setter Property="AllowDrop" Value="True"/>
-                                <EventSetter Event="PreviewMouseMove" Handler="ListBoxItem_PreviewMouseMove"/>
-                                <EventSetter Event="Drop" Handler="ListBoxItem_Drop"/>
+                <local:ChromeTabStripListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource CostumeListBoxItemStyle}">
+                        <Style.Resources>
+                            <Style TargetType="ToolTip">
+                                <Setter Property="Background" Value="#FFF3F3F3"/>
                             </Style>
-                        </local:ChromeTabStripListBox.ItemContainerStyle>
-                    </local:ChromeTabStripListBox>
-                </Grid>
-            </Grid>
+                        </Style.Resources>
+                        <Setter Property="ToolTip" Value="{Binding Header}"/>
+                        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Margin" Value="1"/>
+                        <Setter Property="AllowDrop" Value="True"/>
+                        <EventSetter Event="PreviewMouseMove" Handler="ListBoxItem_PreviewMouseMove"/>
+                        <EventSetter Event="Drop" Handler="ListBoxItem_Drop"/>
+                    </Style>
+                </local:ChromeTabStripListBox.ItemContainerStyle>
+            </local:ChromeTabStripListBox>
         </Grid>
 
         <local:ChromeTabControl x:Name="ChromeTabControl" Style="{StaticResource ChromeTabControlStyle}" 

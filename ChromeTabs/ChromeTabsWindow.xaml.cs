@@ -21,7 +21,7 @@ namespace ChromeTabs
         {
             var captureWindow = new ScreenCaptureLib.ScreenCaptureWindow(false)
             {
-                WindowState = WindowState.Normal,
+                WindowState = this.WindowState,
                 Height = this.ActualHeight,
                 Width = this.ActualWidth,
                 Left = this.Left,
